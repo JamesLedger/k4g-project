@@ -243,9 +243,7 @@ function MainPage() {
           </svg>
         </div>
         <div className="hero-content">
-          <h1 className="hero-title">
-            Why animal advocates should care about AI
-          </h1>
+          <h1 className="hero-title">Animal advocates should care about AI</h1>
         </div>
         <div className="scroll-indicator" aria-hidden="true">
           <span>Scroll to learn why</span>
