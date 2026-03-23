@@ -2,9 +2,34 @@ import { Link } from 'react-router-dom'
 
 const ORGS = [
   {
+    name: 'Sentient Futures',
+    desc: 'International field-building org connecting researchers, advocates, and technologists around AI and nonhuman welfare. Runs fellowships, conferences, and the AI×Animals project incubator.',
+    url: 'https://www.sentientfutures.ai/',
+  },
+  {
+    name: 'Electric Sheep',
+    desc: 'Global nonprofit building compassionate AI for animal protection. Runs the Futurekind Fellowship (free 12-week AI program, no coding required) and Code for Compassion hackathons worldwide.',
+    url: 'https://www.electricsheep.is/',
+  },
+  {
+    name: 'Open Paws',
+    desc: 'Open-source AI tools for animal advocacy — domain-specific language models, automation workflows, prediction models, and datasets. Free AI audits and workshops for charities.',
+    url: 'https://www.openpaws.ai/',
+  },
+  {
     name: 'Amplify for Animals',
-    desc: 'Online course helping animal advocates understand and leverage AI.',
+    desc: 'Free training program helping animal advocates understand and leverage AI in their work. No technical background needed.',
     url: 'https://amplifyforanimals.org',
+  },
+  {
+    name: 'Sentient Futures Slack',
+    desc: 'Active community of researchers, advocates, and professionals working at the intersection of AI and animal welfare. Channels cover AI values, interspecies communication, farmed animals, policy, and more.',
+    url: 'https://tr.ee/imnrj4',
+  },
+  {
+    name: 'Pro-Animal Wikipedians',
+    desc: 'Volunteer community improving Wikipedia coverage of animal rights, welfare, and advocacy topics to ensure accurate, well-sourced information reaches the public.',
+    url: 'https://en.wikipedia.org/wiki/Wikipedia:WikiProject_Animal_rights',
   },
   {
     name: 'OxCAA AI & Animals Subgroup',
@@ -42,9 +67,9 @@ const STEPS = [
   {
     n: 3,
     title: 'Join a community',
-    desc: 'Connect with the OxCAA AI & Animals subgroup to meet others working at this intersection.',
-    url: '#',
-    cta: 'Join OxCAA →',
+    desc: 'Join the Sentient Futures Slack to connect with researchers, advocates, and technologists working at the intersection of AI and animal welfare.',
+    url: 'https://tr.ee/imnrj4',
+    cta: 'Join the Slack →',
   },
   {
     n: 4,
