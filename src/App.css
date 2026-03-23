@@ -106,25 +106,25 @@
   }
 }
 
-/* ── Tsunami Headline ── */
-.tsunami {
+/* ── Directory ── */
+.directory {
   background: linear-gradient(160deg, #0c1a0c 0%, #14301a 40%, #1a4428 80%, #0c1a0c 100%);
   padding: clamp(4rem, 10vw, 7rem) 2rem clamp(3.5rem, 8vw, 5rem);
   position: relative;
   overflow: hidden;
 }
 
-.tsunami::before {
+.directory::before {
   content: '';
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 50% at 10% 90%, rgba(92, 184, 108, 0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 90% 20%, rgba(45, 122, 58, 0.1) 0%, transparent 50%);
+    radial-gradient(ellipse 80% 50% at 10% 90%, rgba(92, 184, 108, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 20%, rgba(45, 122, 58, 0.09) 0%, transparent 50%);
   pointer-events: none;
 }
 
-.tsunami::after {
+.directory::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -134,14 +134,14 @@
   background: linear-gradient(90deg, transparent, rgba(92, 184, 108, 0.3), transparent);
 }
 
-.tsunami-inner {
+.directory-inner {
   max-width: 1120px;
   margin: 0 auto;
   position: relative;
   z-index: 1;
 }
 
-.tsunami-eyebrow {
+.directory-eyebrow {
   font-size: 0.78rem;
   font-weight: 500;
   letter-spacing: 0.1em;
@@ -151,125 +151,195 @@
   text-align: center;
 }
 
-.tsunami-headline {
+.directory-headline {
   font-family: var(--serif);
-  font-size: clamp(1.9rem, 4.5vw, 3.2rem);
-  line-height: 1.15;
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  line-height: 1.12;
   color: #e8ede4;
   text-align: center;
-  max-width: 860px;
-  margin: 0 auto 1.4rem;
+  max-width: 700px;
+  margin: 0 auto 1.2rem;
   font-weight: 400;
 }
 
-.tsunami-headline-accent {
+.directory-headline-accent {
   color: #5cb86c;
 }
 
-.tsunami-sub {
+.directory-sub {
   text-align: center;
   max-width: 660px;
-  margin: 0 auto 3.5rem;
-  color: rgba(232, 237, 228, 0.6);
-  font-size: clamp(0.95rem, 1.5vw, 1.08rem);
+  margin: 0 auto 2.5rem;
+  color: rgba(232, 237, 228, 0.55);
+  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
   line-height: 1.75;
 }
 
-.tsunami-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.4rem;
+.directory-sub a {
+  color: #5cb86c;
+  text-decoration: underline;
+  text-decoration-color: rgba(92, 184, 108, 0.35);
+  text-underline-offset: 2px;
+  transition: text-decoration-color 0.2s;
+}
+
+.directory-sub a:hover {
+  text-decoration-color: #5cb86c;
+  color: #7ad48a;
+}
+
+.directory-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
   margin-bottom: 2.5rem;
 }
 
-.tsunami-card {
+.directory-filter-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(92, 184, 108, 0.12);
+  border-radius: 8px;
+  padding: 0.45rem 1rem;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(232, 237, 228, 0.6);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.directory-filter-btn:hover {
+  border-color: rgba(92, 184, 108, 0.35);
+  color: #e8ede4;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.directory-filter-btn.active {
+  background: #5cb86c;
+  border-color: #5cb86c;
+  color: #0c1a0c;
+  font-weight: 600;
+}
+
+.directory-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+
+.directory-card {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(92, 184, 108, 0.1);
   border-radius: 14px;
-  padding: 1.8rem;
+  padding: 1.6rem;
   display: flex;
   flex-direction: column;
   transition: background 0.3s, border-color 0.3s, transform 0.3s;
 }
 
-.tsunami-card:hover {
+.directory-card:hover {
   background: rgba(255, 255, 255, 0.06);
   border-color: rgba(92, 184, 108, 0.25);
   transform: translateY(-2px);
 }
 
-.tsunami-card-label {
-  display: inline-block;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #5cb86c;
-  background: rgba(92, 184, 108, 0.1);
-  padding: 3px 10px;
-  border-radius: 4px;
-  margin-bottom: 0.9rem;
-  align-self: flex-start;
+.directory-card-top {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
 }
 
-.tsunami-card-title {
+.directory-card-category {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(92, 184, 108, 0.65);
+  background: rgba(92, 184, 108, 0.08);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.directory-card-free {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #e8ede4;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.directory-card-name {
   font-family: var(--serif);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 400;
   color: #e8ede4;
-  margin: 0 0 0.8rem;
-  line-height: 1.3;
+  margin: 0 0 0.35rem;
+  line-height: 1.25;
 }
 
-.tsunami-card-quote {
-  margin: 0 0 1rem;
-  padding: 0.8rem 1rem;
-  border-left: 3px solid rgba(92, 184, 108, 0.35);
-  background: rgba(92, 184, 108, 0.04);
-  border-radius: 0 8px 8px 0;
+.directory-card-highlight {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #5cb86c;
+  margin: 0 0 0.7rem;
+  line-height: 1.4;
+}
+
+.directory-card-desc {
   font-size: 0.88rem;
-  font-style: italic;
-  color: rgba(232, 237, 228, 0.72);
+  color: rgba(232, 237, 228, 0.48);
   line-height: 1.6;
-}
-
-.tsunami-card-desc {
-  font-size: 0.9rem;
-  color: rgba(232, 237, 228, 0.5);
-  line-height: 1.65;
   margin: 0;
   flex-grow: 1;
 }
 
-.tsunami-link {
-  display: block;
-  text-align: center;
-  font-size: 0.95rem;
+.directory-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 1rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: #5cb86c;
   transition: color 0.2s;
 }
 
-.tsunami-link:hover {
+.directory-card-link:hover {
   color: #7ad48a;
 }
 
+@media (max-width: 1024px) {
+  .directory-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
-  .tsunami {
+  .directory {
     padding: 3rem 1.2rem 2.5rem;
   }
 
-  .tsunami-grid {
+  .directory-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
 
-  .tsunami-card {
-    padding: 1.4rem;
+  .directory-card {
+    padding: 1.3rem;
   }
 
-  .tsunami-card-title {
-    font-size: 1.1rem;
+  .directory-filters {
+    gap: 0.4rem;
+  }
+
+  .directory-filter-btn {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.75rem;
   }
 }
 
@@ -422,89 +492,6 @@
   line-height: 1.55;
 }
 
-/* ── Tools Grid ── */
-.tools-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-}
-
-.tool-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border-light);
-  border-radius: 14px;
-  padding: 1.8rem;
-  box-shadow: var(--card-shadow);
-  transition: box-shadow 0.3s, transform 0.3s;
-  display: flex;
-  flex-direction: column;
-}
-
-.tool-card:hover {
-  box-shadow: var(--card-shadow-hover);
-  transform: translateY(-3px);
-}
-
-.tool-card-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
-}
-
-.tool-card-icon {
-  font-size: 1.8rem;
-  line-height: 1;
-}
-
-.tool-card h3 {
-  margin: 0;
-}
-
-.tool-card-desc {
-  color: var(--text-muted);
-  font-size: 0.95rem;
-  margin-bottom: 1rem;
-  line-height: 1.55;
-}
-
-.tool-card-uses {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1.2rem;
-  flex-grow: 1;
-}
-
-.tool-card-uses li {
-  position: relative;
-  padding-left: 1.4rem;
-  margin-bottom: 0.4rem;
-  font-size: 0.9rem;
-  color: var(--text);
-  line-height: 1.5;
-}
-
-.tool-card-uses li::before {
-  content: '→';
-  position: absolute;
-  left: 0;
-  color: var(--accent);
-  font-weight: 600;
-}
-
-.tool-card-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--accent);
-  margin-top: auto;
-}
-
-.tool-card-link:hover {
-  color: var(--accent-light);
-}
 
 /* ── Prompt Library ── */
 .prompt-categories {
@@ -666,10 +653,6 @@
 
   .section {
     padding: 2.5rem 1.2rem;
-  }
-
-  .tools-grid {
-    grid-template-columns: 1fr;
   }
 
   .prompts-grid {

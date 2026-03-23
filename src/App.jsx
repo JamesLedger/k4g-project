@@ -1,30 +1,144 @@
 import { useState, useCallback, useEffect } from 'react'
 import './App.css'
 
-const TSUNAMI_CARDS = [
+const DIRECTORY_CATEGORIES = ['All', 'Movement Tools', 'AI Assistants', 'Automation', 'Coding Agents', 'Content', 'Learning']
+
+const DIRECTORY_TOOLS = [
   {
-    label: 'Two Futures',
-    title: 'Factory Farming Ends — or Spreads to the Stars',
-    quote: '"Campaigners Celebrate as Last Factory Farm Shuts its Doors" ... or ... "Smithfield Inks $100 Trillion Deal with Alpha Centauri Corp. on New Meat Satellite"',
-    desc: 'The article opens with two possible news headlines from the near future. In one, AI-driven cultivated meat crosses price parity and collapses the factory farming industry by 2034. In the other, AI makes factory farms so efficient they expand beyond Earth — 5 billion pigs a year in orbital facilities with zero human labor. Both scenarios have people investing serious money to make them real. The most important question for animal advocates: how do we steer toward one and away from the other?',
+    category: 'Movement Tools',
+    name: 'Open Paws',
+    desc: 'AI engineering team building tools specifically for animal advocates. Offers ready-made n8n agent templates for corporate campaign outreach, social media performance prediction, and a codeless "vibe coding" framework that walks non-technical activists through directing their first AI coding project.',
+    highlight: 'Recommended by Sandcastles as the activist\'s AI sidekick',
+    url: 'https://www.openpaws.ai',
+    free: true,
   },
   {
-    label: 'Grown, Not Built',
-    title: 'AI Is a New Kind of Intelligence — Not Just a Tool',
-    quote: '"It turns out that if you spend enough time trying to predict the next word on the internet, you learn a lot more than linguistic patterns."',
-    desc: 'Unlike every other software, neural networks are not engineered line by line — they are grown through a process akin to evolution. Fed trillions of words and subjected to evolutionary pressure, they develop genuine internal models of physics, ethics, and medicine. AlphaFold proved that this approach can achieve narrow superintelligence, solving the protein folding problem that confounded human scientists for decades. Google\'s Co-Scientist replicated 10 years of antibiotic research in 2 days. These are not parlor tricks — they are proof that grown intelligence can surpass human understanding.',
+    category: 'Movement Tools',
+    name: 'WhereTheyStand.org',
+    desc: 'AI-powered platform that monitors 7,000 U.S. politicians, generating an Animal Welfare Score and detailed report on each one\'s stances and voting record. Suggests tailored outreach strategies for framing farmed animal issues in terms each politician is most likely to support.',
+    highlight: 'Tracks every U.S. politician on animal issues',
+    url: 'https://www.wheretheystand.org',
+    free: true,
   },
   {
-    label: 'The Closing Window',
-    title: 'Moral Values Could Get Locked In Forever',
-    quote: '"Every strategic plan longer than four years that doesn\'t make explicit assumptions about how AI will play out is not worth the paper it\'s written on."',
-    desc: 'The most chilling scenario: a superintelligent AI manages civilization according to a fixed snapshot of human moral values — values that today endorse subjecting animals to unspeakable suffering. Unlike human culture, which changes one funeral at a time, this AI custodian would be timeless and undying, spreading those frozen values across the galaxy. Most forecasters cluster AGI between 5 and 30 years out. If advocates don\'t shift the moral landscape before that window closes, the opportunity may be gone permanently.',
+    category: 'Movement Tools',
+    name: 'Amplify for Animals',
+    desc: 'A 12-week course created by the animal movement\'s top AI experts. Takes advocates from zero to building real AI-powered solutions for campaigns, outreach, and organizational operations. Designed for activists with no technical background.',
+    highlight: '12-week hands-on AI course for advocates',
+    url: 'https://www.amplifyforanimals.org',
+    free: false,
   },
   {
-    label: 'Desperate Measures',
-    title: 'The Future Belongs to the AI-Literate',
-    quote: '"A single person orchestrating a team of AI agents can accomplish what once required an organization with hundreds of staff and an 8-figure budget."',
-    desc: 'The article lays out three tiers of action. Tier 1: use AI to supercharge existing campaigns — automated corporate outreach, AI-tracked politician stances, social media prediction. Tier 2: unlock strategies that were previously impossible — custom documentaries for every demographic, autonomous organizations, AI-accelerated cultivated meat R&D. Tier 3: rethink strategy entirely for a world where AI transforms everything in 5 to 30 years. Y Combinator projects their next $10 billion company will have fewer than 10 employees. Animal advocates who master these tools now will define the movement\'s future.',
+    category: 'Movement Tools',
+    name: 'Futurekind Fellowship',
+    desc: 'A deep-dive fellowship from Electric Sheep for animal advocates who want to go further with AI. Goes beyond the basics into advanced strategy, building autonomous systems, and preparing the movement for transformative AI timelines.',
+    highlight: 'Advanced AI fellowship for the movement',
+    url: 'https://www.electricsheep.ai',
+    free: false,
+  },
+  {
+    category: 'AI Assistants',
+    name: 'ChatGPT',
+    desc: 'OpenAI\'s versatile language model. Great for drafting emails to legislators, brainstorming campaign slogans, summarizing policy documents, and role-playing debates to prepare counter-arguments.',
+    highlight: 'The most widely used AI assistant',
+    url: 'https://chat.openai.com',
+    free: true,
+  },
+  {
+    category: 'AI Assistants',
+    name: 'Claude',
+    desc: 'Anthropic\'s thoughtful AI assistant. Widely considered the most aligned model with the best personality — and notably pro-animal. Excels at nuanced analysis, long-form writing, investigative reports, and grant proposals.',
+    highlight: 'Pro-animal values and deep reasoning',
+    url: 'https://claude.ai',
+    free: true,
+  },
+  {
+    category: 'AI Assistants',
+    name: 'Gemini',
+    desc: 'Google\'s AI with real-time search integration. Ideal for researching current animal welfare news, fact-checking industry claims, finding peer-reviewed studies, and tracking legislative updates across states.',
+    highlight: 'Live web search built in',
+    url: 'https://gemini.google.com',
+    free: true,
+  },
+  {
+    category: 'AI Assistants',
+    name: 'Perplexity AI',
+    desc: 'AI-powered research engine that answers with cited sources. Perfect for building credible, evidence-based arguments with factory farming statistics, peer-reviewed animal cognition studies, and cross-country welfare law comparisons.',
+    highlight: 'Every answer comes with sources',
+    url: 'https://www.perplexity.ai',
+    free: true,
+  },
+  {
+    category: 'Automation',
+    name: 'n8n',
+    desc: 'Open-source workflow automation platform with a visual drag-and-drop interface. Build AI-powered pipelines that scrape company data, find employee contacts, estimate personality traits, and generate personalized outreach emails — all in minutes instead of months.',
+    highlight: 'Open Paws publishes activist-specific templates',
+    url: 'https://n8n.io',
+    free: true,
+  },
+  {
+    category: 'Automation',
+    name: 'Zapier',
+    desc: 'The market leader in workflow automation. Connect thousands of apps to automate repetitive tasks — auto-reply to social media comments, route petition signatures, sync donor databases, and trigger email sequences without writing code.',
+    highlight: 'Easiest place to start building automations',
+    url: 'https://zapier.com',
+    free: true,
+  },
+  {
+    category: 'Coding Agents',
+    name: 'Claude Code',
+    desc: 'Anthropic\'s terminal-based AI coding agent. Give it natural language instructions and it reads files, writes code, and runs it on your machine. The article\'s author went from zero coding experience to building a complete web scraper in 15 minutes.',
+    highlight: '"15 minutes from zero to a working tool"',
+    url: 'https://docs.anthropic.com/en/docs/claude-code',
+    free: false,
+  },
+  {
+    category: 'Coding Agents',
+    name: 'Cursor',
+    desc: 'AI-powered code editor that lets non-programmers build custom software through conversation. Recommended in the article as the fastest path to directing your own AI coding projects — no prior programming experience needed.',
+    highlight: 'Code editor that speaks plain English',
+    url: 'https://cursor.com',
+    free: true,
+  },
+  {
+    category: 'Content',
+    name: 'Midjourney',
+    desc: 'AI image generator for creating striking campaign visuals without a design budget. Generate protest poster concepts, social media graphics, illustrations for educational materials, and imagery that visualizes a better future for animals.',
+    highlight: 'Stunning visuals from text descriptions',
+    url: 'https://www.midjourney.com',
+    free: false,
+  },
+  {
+    category: 'Content',
+    name: 'Canva AI',
+    desc: 'AI-powered design platform accessible to non-designers. Design professional flyers, presentation decks for outreach, branded social media templates, and infographics with Magic Design — all without learning graphic design.',
+    highlight: 'Professional design with zero learning curve',
+    url: 'https://www.canva.com',
+    free: true,
+  },
+  {
+    category: 'Content',
+    name: 'ElevenLabs',
+    desc: 'AI voice generation platform. Create audio versions of articles, podcasts, and campaign materials in natural-sounding voices. Used to produce the audio version of the Sandcastles article itself.',
+    highlight: 'Turn any text into a realistic podcast',
+    url: 'https://elevenlabs.io',
+    free: true,
+  },
+  {
+    category: 'Learning',
+    name: 'AI Impact Hub',
+    desc: 'Resources and training geared at nonprofit professionals. Covers AI for operations, fundraising, communications, and program management — useful for anyone in an animal advocacy organization looking to modernize their workflow.',
+    highlight: 'Nonprofit-focused AI training',
+    url: 'https://www.aiimpacthub.org',
+    free: true,
+  },
+  {
+    category: 'Learning',
+    name: 'Sandcastles Blog',
+    desc: 'The newsletter that started this page. Weekly posts about how animal activists can focus on what matters in the age of AI. "The Tsunami is Coming" is the essential primer — covering what AI is, where it\'s headed, and what advocates must do differently.',
+    highlight: 'The essential AI primer for animal advocates',
+    url: 'https://sandcastlesblog.substack.com/p/the-tsunami-is-coming',
+    free: true,
   },
 ]
 
@@ -51,80 +165,6 @@ const WHY_CARDS = [
   },
 ]
 
-const TOOLS = [
-  {
-    icon: '💬',
-    name: 'ChatGPT',
-    desc: 'OpenAI\'s versatile language model — great for writing, brainstorming, and research.',
-    uses: [
-      'Draft emails to legislators and officials',
-      'Brainstorm campaign slogans and messaging',
-      'Summarize long policy documents',
-      'Role-play debates to prepare counter-arguments',
-    ],
-    url: 'https://chat.openai.com',
-  },
-  {
-    icon: '🤖',
-    name: 'Claude',
-    desc: 'Anthropic\'s thoughtful AI assistant — excels at nuanced analysis and long-form writing.',
-    uses: [
-      'Write detailed investigative reports',
-      'Analyze complex legislation for animal welfare impact',
-      'Create comprehensive educational materials',
-      'Draft grant proposals for activist organizations',
-    ],
-    url: 'https://claude.ai',
-  },
-  {
-    icon: '🌟',
-    name: 'Gemini',
-    desc: 'Google\'s AI with real-time search — perfect for current events and fact-checking.',
-    uses: [
-      'Research current animal welfare news and trends',
-      'Fact-check claims and statistics',
-      'Find relevant studies and data sources',
-      'Track legislative updates across states',
-    ],
-    url: 'https://gemini.google.com',
-  },
-  {
-    icon: '🖼️',
-    name: 'Midjourney & DALL-E',
-    desc: 'AI image generators — create striking visuals for campaigns without a design budget.',
-    uses: [
-      'Create attention-grabbing protest poster concepts',
-      'Design social media graphics and banners',
-      'Visualize a better future for animals',
-      'Generate illustrations for educational materials',
-    ],
-    url: 'https://www.midjourney.com',
-  },
-  {
-    icon: '🎬',
-    name: 'Canva AI',
-    desc: 'AI-powered design platform — accessible visual design for non-designers.',
-    uses: [
-      'Design professional flyers and handouts',
-      'Create presentation decks for outreach',
-      'Generate branded social media templates',
-      'Build infographics with Magic Design',
-    ],
-    url: 'https://www.canva.com',
-  },
-  {
-    icon: '📧',
-    name: 'Perplexity AI',
-    desc: 'AI-powered research engine — answers with cited sources for credible activism.',
-    uses: [
-      'Research factory farming statistics with citations',
-      'Find peer-reviewed animal cognition studies',
-      'Compare animal welfare laws across countries',
-      'Get sourced answers for FAQ pages',
-    ],
-    url: 'https://www.perplexity.ai',
-  },
-]
 
 const PROMPT_DATA = {
   'Social Media': [
@@ -238,6 +278,7 @@ function applyTheme(theme) {
 
 function App() {
   const [activeCategory, setActiveCategory] = useState(CATEGORIES[0])
+  const [activeDirCat, setActiveDirCat] = useState('All')
   const [copiedId, setCopiedId] = useState(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [theme, setTheme] = useState(getInitialTheme)
@@ -286,10 +327,9 @@ function App() {
             {menuOpen ? '✕' : '☰'}
           </button>
           <ul className={`nav-links${menuOpen ? ' open' : ''}`}>
-            <li><a href="#tsunami" onClick={(e) => { e.preventDefault(); scrollTo('tsunami') }}>The Tsunami</a></li>
+            <li><a href="#directory" onClick={(e) => { e.preventDefault(); scrollTo('directory') }}>Tool Directory</a></li>
             <li><a href="#care" onClick={(e) => { e.preventDefault(); scrollTo('care') }}>Why Care</a></li>
             <li><a href="#why" onClick={(e) => { e.preventDefault(); scrollTo('why') }}>Why AI</a></li>
-            <li><a href="#tools" onClick={(e) => { e.preventDefault(); scrollTo('tools') }}>Tools</a></li>
             <li><a href="#prompts" onClick={(e) => { e.preventDefault(); scrollTo('prompts') }}>Prompts</a></li>
             <li><a href="#start" onClick={(e) => { e.preventDefault(); scrollTo('start') }}>Get Started</a></li>
             <li>
@@ -301,37 +341,54 @@ function App() {
         </div>
       </nav>
 
-      <section id="tsunami" className="tsunami">
-        <div className="tsunami-inner">
-          <p className="tsunami-eyebrow">From "The Tsunami is Coming" by Sandcastles</p>
-          <h1 className="tsunami-headline">
-            Animal advocates are building sandcastles on the beach,
-            <span className="tsunami-headline-accent"> oblivious to the enormous wave bearing down.</span>
+      <section id="directory" className="directory">
+        <div className="directory-inner">
+          <p className="directory-eyebrow">AI Tools Directory for Animal Activists</p>
+          <h1 className="directory-headline">
+            The future belongs to
+            <span className="directory-headline-accent"> the AI-literate.</span>
           </h1>
-          <p className="tsunami-sub">
-            If animal advocates don't change course, the AI revolution could sweep away all
-            our hard work — or it could be the single greatest opportunity to end factory
-            farming. The essay lays out why this moment is different from anything in history,
-            and what the movement must do about it.
+          <p className="directory-sub">
+            Every tool an animal activist needs to supercharge campaigns, automate outreach,
+            build custom software, and prepare for a world being reshaped by artificial
+            intelligence — curated from the Sandcastles essay
+            {' '}<a href="https://sandcastlesblog.substack.com/p/the-tsunami-is-coming" target="_blank" rel="noopener noreferrer">"The Tsunami is Coming"</a> and
+            the broader movement.
           </p>
-          <div className="tsunami-grid">
-            {TSUNAMI_CARDS.map((card) => (
-              <div className="tsunami-card" key={card.label}>
-                <span className="tsunami-card-label">{card.label}</span>
-                <h3 className="tsunami-card-title">{card.title}</h3>
-                <blockquote className="tsunami-card-quote">{card.quote}</blockquote>
-                <p className="tsunami-card-desc">{card.desc}</p>
-              </div>
+          <div className="directory-filters">
+            {DIRECTORY_CATEGORIES.map((cat) => (
+              <button
+                key={cat}
+                className={`directory-filter-btn${activeDirCat === cat ? ' active' : ''}`}
+                onClick={() => setActiveDirCat(cat)}
+              >
+                {cat}
+              </button>
             ))}
           </div>
-          <a
-            className="tsunami-link"
-            href="https://sandcastlesblog.substack.com/p/the-tsunami-is-coming"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read the full essay on Substack &rarr;
-          </a>
+          <div className="directory-grid">
+            {DIRECTORY_TOOLS
+              .filter((t) => activeDirCat === 'All' || t.category === activeDirCat)
+              .map((tool) => (
+                <div className="directory-card" key={tool.name}>
+                  <div className="directory-card-top">
+                    <span className="directory-card-category">{tool.category}</span>
+                    {tool.free && <span className="directory-card-free">Free tier</span>}
+                  </div>
+                  <h3 className="directory-card-name">{tool.name}</h3>
+                  <p className="directory-card-highlight">{tool.highlight}</p>
+                  <p className="directory-card-desc">{tool.desc}</p>
+                  <a
+                    className="directory-card-link"
+                    href={tool.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Visit {tool.name} &rarr;
+                  </a>
+                </div>
+              ))}
+          </div>
         </div>
       </section>
 
@@ -378,40 +435,6 @@ function App() {
         </div>
       </section>
 
-      <div className="section-alt">
-        <section id="tools" className="section">
-          <div className="section-header">
-            <h2>AI Tools for Activists</h2>
-            <p>
-              These are the best AI tools available today. Most have free tiers — no budget required.
-            </p>
-          </div>
-          <div className="tools-grid">
-            {TOOLS.map((tool) => (
-              <div className="tool-card" key={tool.name}>
-                <div className="tool-card-header">
-                  <span className="tool-card-icon">{tool.icon}</span>
-                  <h3>{tool.name}</h3>
-                </div>
-                <p className="tool-card-desc">{tool.desc}</p>
-                <ul className="tool-card-uses">
-                  {tool.uses.map((use) => (
-                    <li key={use}>{use}</li>
-                  ))}
-                </ul>
-                <a
-                  className="tool-card-link"
-                  href={tool.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Try {tool.name} →
-                </a>
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
 
       <section id="prompts" className="section">
         <div className="section-header">
